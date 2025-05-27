@@ -395,7 +395,7 @@ class _ScrollableTrimViewerState extends State<ScrollableTrimViewer>
       final bool isPlaying = videoPlayerController.value.isPlaying;
 
       if (isPlaying) {
-        widget.onChangePlaybackState!(true);
+        widget.onChangePlaybackState?.call(true);
         setState(() {
           _currentPosition =
               videoPlayerController.value.position.inMilliseconds;
@@ -597,13 +597,13 @@ class _ScrollableTrimViewerState extends State<ScrollableTrimViewer>
                               .format(widget.durationStyle),
                           style: widget.durationTextStyle,
                         ),
-                        videoPlayerController.value.isPlaying
-                            ? Text(
-                                Duration(milliseconds: _currentPosition.toInt())
-                                    .format(widget.durationStyle),
-                                style: widget.durationTextStyle,
-                              )
-                            : Container(),
+                        // videoPlayerController.value.isPlaying
+                        //     ? Text(
+                        //         Duration(milliseconds: _currentPosition.toInt())
+                        //             .format(widget.durationStyle),
+                        //         style: widget.durationTextStyle,
+                        //       )
+                        //     : Container(),
                         Text(
                           Duration(milliseconds: _videoEndPos.toInt())
                               .format(widget.durationStyle),

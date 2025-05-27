@@ -257,10 +257,9 @@ class Trimmer {
   /// * [outputType] can be `video` or `gif`.
   ///
   ///
-  Future<void> saveTrimmedVideo({
+  Future<String?> saveTrimmedVideo({
     required double startValue,
     required double endValue,
-    required Function(String? outputPath) onSave,
     int? fpsGIF,
     int? scaleGIF,
     int? qualityGIF,
@@ -315,8 +314,7 @@ class Trimmer {
         endValue: endValue,
         outputGifPath: outputPath,
       );
-
-      onSave(gifPath);
+      return gifPath;
     } else {
       await _videoTrimmer.loadVideo(currentVideoFile!.path);
 
@@ -328,7 +326,7 @@ class Trimmer {
 
       // Copy the trimmed video to the output path
       await File(trimmedPath!).copy(outputPath);
-      onSave(outputPath);
+      return outputPath;
     }
   }
 

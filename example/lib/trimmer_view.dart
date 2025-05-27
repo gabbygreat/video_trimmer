@@ -32,24 +32,23 @@ class _TrimmerViewState extends State<TrimmerView> {
     _trimmer.loadVideo(videoFile: widget.file);
   }
 
-  _saveVideo() {
+  _saveVideo() async {
     setState(() {
       _progressVisibility = true;
     });
 
-    _trimmer.saveTrimmedVideo(
+    final outputPath = await _trimmer.saveTrimmedVideo(
       startValue: _startValue,
       endValue: _endValue,
-      onSave: (outputPath) {
-        setState(() => _progressVisibility = false);
-        debugPrint('OUTPUT PATH: $outputPath');
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => Preview(outputPath),
-          ),
-        );
-      },
+    );
+    setState(() => _progressVisibility = false);
+    debugPrint('OUTPUT PATH: $outputPath');
+    if (!mounted) return;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => Preview(outputPath),
+      ),
     );
   }
 
